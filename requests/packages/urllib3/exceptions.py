@@ -75,17 +75,17 @@ class TimeoutError(RequestError):
     pass
 
 
-class InnerConnectionTimeoutError(HTTPError):
+class InnerConnectionTimeoutError(Exception):
     "Raised when a socket timeout occurs while trying to connect to host:port."
     pass
 
 
-class ConnectionTimeoutError(TimeoutError):
+class ConnectionTimeoutError(Exception):
     "Raised when a socket timeout occurs while trying to connect to host:port."
     pass
 
 
-class OperationTimeoutError(TimeoutError):
+class OperationTimeoutError(Exception):
     "Raised when a socket timeout occurs while waiting for response on already opened connection."
     pass
 
