@@ -168,7 +168,7 @@ class Session(SessionRedirectMixin):
         'params', 'verify', 'cert', 'prefetch', 'adapters', 'stream',
         'trust_env', 'max_redirects']
 
-    def __init__(self):
+    def __init__(self, connect_timeout=None):
 
         #: A case-insensitive dictionary of headers to be sent on each
         #: :class:`Request <Request>` sent from this
@@ -213,8 +213,8 @@ class Session(SessionRedirectMixin):
 
         # Default connection adapters.
         self.adapters = OrderedDict()
-        self.mount('https://', HTTPAdapter())
-        self.mount('http://', HTTPAdapter())
+        self.mount('https://', HTTPAdapter(connect_timeout=connect_timeout))
+        self.mount('http://', HTTPAdapter(connect_timeout=connect_timeout))
 
     def __enter__(self):
         return self
