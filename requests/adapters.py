@@ -68,7 +68,7 @@ class HTTPAdapter(BaseAdapter):
 
     def __init__(self, pool_connections=DEFAULT_POOLSIZE,
                  pool_maxsize=DEFAULT_POOLSIZE, max_retries=DEFAULT_RETRIES,
-                 pool_block=DEFAULT_POOLBLOCK):
+                 pool_block=DEFAULT_POOLBLOCK, connect_timeout=None):
         self.max_retries = max_retries
         self.config = {}
 
@@ -77,6 +77,7 @@ class HTTPAdapter(BaseAdapter):
         self._pool_connections = pool_connections
         self._pool_maxsize = pool_maxsize
         self._pool_block = pool_block
+        self.connect_timeout = connect_timeout
 
         self.init_poolmanager(pool_connections, pool_maxsize, block=pool_block)
 
@@ -106,7 +107,8 @@ class HTTPAdapter(BaseAdapter):
         self._pool_block = block
 
         self.poolmanager = PoolManager(num_pools=connections, maxsize=maxsize,
-                                       block=block)
+                                       block=block, 
+                                       connect_timeout=self.connect_timeout)
 
     def cert_verify(self, conn, url, verify, cert):
         """Verify a SSL certificate. This method should not be called from user
