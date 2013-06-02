@@ -75,10 +75,24 @@ class TimeoutError(RequestError):
     pass
 
 
+class InnerConnectionTimeoutError(HTTPError):
+    "Raised when a socket timeout occurs while trying to connect to host:port."
+    pass
+
+
+class ConnectionTimeoutError(TimeoutError):
+    "Raised when a socket timeout occurs while trying to connect to host:port."
+    pass
+
+
+class OperationTimeoutError(TimeoutError):
+    "Raised when a socket timeout occurs while waiting for response on already opened connection."
+    pass
+
+
 class EmptyPoolError(PoolError):
     "Raised when a pool runs out of connections and no more are allowed."
     pass
-
 
 class ClosedPoolError(PoolError):
     "Raised when a request enters a pool after the pool has been closed."
